@@ -11,8 +11,8 @@ import theme from './theme';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <NotePage />
+    path: "/:slug",
+    element: <Layout />
   }
 ])
 
@@ -20,9 +20,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Layout>
-        <RouterProvider router={router} />
-      </Layout>
+      <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>
 );
