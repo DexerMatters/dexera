@@ -3,11 +3,27 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components'
+import NotePage from './pages/NotePage';
+import Layout from './Layout';
+import theme from './theme';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <NotePage />
+  }
+])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <Layout>
+        <RouterProvider router={router} />
+      </Layout>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
