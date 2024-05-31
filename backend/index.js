@@ -1,12 +1,14 @@
-import { readdirSync, statSync } from 'fs';
+import { existsSync, readFile, readdirSync, stat, statSync, watch } from 'fs';
 import express from 'express';
 import cors from 'cors';
+import hound from 'hound';
 
 const docsPath = "./docs";
 const port = 3001;
 
 let catergory = [];
 let app = express();
+let watcher = hound.watch("./docs");
 
 function updateCatergory(path, ctg) {
   readdirSync(path).forEach((name, index) => {
@@ -23,11 +25,28 @@ function updateCatergory(path, ctg) {
   )
 }
 
+watcher.on('change', (file, stats) => {
+  catergory = [];
+  updateCatergory(docsPath, catergory);
+  console.log("[INFO] Catergory structure changed");
+})
+
 app.use(cors())
 
 app.get("/catergory", (req, res) => {
-  console.log("[INFO] Receive GET")
   res.send(catergory);
+})
+
+app.get("/content", (req, res) => {
+  let path = decodeURIComponent(req.query["path"]);
+  console.log(req.query["path"]);
+  if (statSync(path).isDirectory() && existsSync(path + "/index.md")) {
+    path += "/index.md"
+  };
+  console.log(path);
+  readFile(path, (err, data) =>
+    res.send(data)
+  );
 })
 
 app.listen(port, () =>
