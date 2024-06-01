@@ -1,0 +1,26 @@
+name: Update Backend
+
+on: 
+  push:
+    branches: ["master"]
+    paths: 
+      - 'backend/*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v4
+    - name: Run pull on the server
+      env:
+        SSH_KEY: ${{ secrets.SSH_KEY }}
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: "ssv4.liteyuki.icu"
+        username: "dexer"
+        key: "${SSH_KEY}"
+        port: 50126
+        script: |
+          cd dexera
+          git pull
+        
