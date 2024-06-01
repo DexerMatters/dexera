@@ -35,7 +35,7 @@ jobs:
     - name: copy file via ssh key
       uses: appleboy/scp-action@v0.1.7
       with:
-        host: ${{ secrets.DESTINATION_HOST }}
+        host: "ssv4.liteyuki.icu"
         username: "dexer"
         port: 50126
         key: ${{ secrets.SSH_KEY }}
