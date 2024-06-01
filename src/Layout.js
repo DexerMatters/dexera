@@ -3,7 +3,7 @@ import { Flex, Heading, Text } from "rebass";
 import Template from "./pages/Template";
 import { Link, useSearchParams } from "react-router-dom";
 
-export default function Layout(ctg) {
+export default function Layout({ ctg }) {
   let [data, setData] = useState({ ctg: ctg, content: "" });
   let [query] = useSearchParams();
   let path = decodeURIComponent(query.get("path"));
