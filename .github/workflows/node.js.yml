@@ -33,13 +33,13 @@ jobs:
     - run: echo ${{ secrets.DESTINATION_HOST }}
     
     - name: Copy file via ssh key
-      uses: appleboy/scp-action@v0.1.7
+      uses: garygrossgarten/github-action-scp@release
       with:
         host: ${{ secrets.DESTINATION_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
+        privateKey: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.DESTINATION_SSH_PORT }}
-        source: "./build/*"
-        target: "/var/www/dexera"
-        rm: true
+        local: "./build/*"
+        remote: "/var/www/dexera"
+        rmRemote: true
     - uses: actions/checkout@v4
