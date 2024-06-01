@@ -6,8 +6,6 @@ name: Node.js CI
 on:
   push:
     branches: [ "master" ]
-    paths:
-      - '**'
     paths-ignore:
       - 'backend/**'
       - '.github/workflows/**'
