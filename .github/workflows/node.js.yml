@@ -20,6 +20,7 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    
     - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -29,14 +30,15 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    
     - uses: actions/checkout@v4
-    - name: copy file via ssh password
+    - name: Copy file via ssh password
       uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.DESTINATION_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.DESTINATION_SSH_PORT }}
-        source: ${{ secrets.SOURCE_FOLDER }}
-        target: ${{ secrets.DESTINATION_FOLDER }}
+        source: "./build/*"
+        target: "/var/www/dexera"
         rm: true
