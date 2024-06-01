@@ -15,7 +15,7 @@ export default function Layout({ ctg }) {
       .then(data => mData.content = data)
       .then(() => setData(mData))
       .catch(err => console.error(err))
-  }, [path])
+  }, [path, ctg])
 
   console.log(path)
   console.log(data);
