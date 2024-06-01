@@ -40,7 +40,7 @@ jobs:
         username: "dexer"
         port: 50126
         key: "${SSH_KEY}"
-        source: "build"
+        source: "build/*"
         target: "/var/www/dexera"
       
     
