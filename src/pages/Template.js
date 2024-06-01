@@ -17,7 +17,7 @@ export default function Template({ header, content }) {
         color="purple"
         sx={{ position: "absolute" }}
       >
-        {header}
+        {header} &nbsp;
       </Heading>
       <Box mt="3em">
         <Markdown
