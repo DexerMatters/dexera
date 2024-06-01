@@ -10,11 +10,11 @@ export default function Layout() {
 
   useEffect(() => {
     let mData = { ctg: [], content: "" };
-    fetch("http://api.dexera.online/catergory")
+    fetch("https://api.dexera.online/catergory")
       .then(response => response.json())
       .then(data => mData.ctg = data)
       .catch(err => console.error(err));
-    fetch("http://api.dexera.online/content?path=" + encodeURIComponent(path))
+    fetch("https://api.dexera.online/content?path=" + encodeURIComponent(path))
       .then(response => response.text())
       .then(data => mData.content = data)
       .then(() => setData(mData))
