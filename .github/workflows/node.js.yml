@@ -39,6 +39,6 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.DESTINATION_SSH_PORT }}
-        source: "./build/*"
+        source: "~/build/*"
         target: "/var/www/dexera"
         rm: true
