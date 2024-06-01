@@ -8,7 +8,10 @@ import Layout from './Layout';
 import theme from './theme';
 import fetch from 'sync-fetch'
 
-const ctg = fetch("https://api.dexera.online/catergory").json()
+const API = 'api.dexera.online';
+// const API = "http://localhost:3001";
+
+const ctg = fetch(API + "/catergory").json()
 
 const router = createBrowserRouter([
   {
@@ -17,7 +20,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/s",
-    element: <Layout ctg={ctg} />
+    element: <Layout ctg={ctg} api={API} />
   }
 ])
 

@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/googlecode.css">
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="Dexer's Blog Dexera" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
@@ -22,6 +23,17 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+  <style>
+    @font-face {
+      font-family: hasklig;
+      src: url('fonts/Hasklig-Regular.ttf');
+    }
+
+    .hljs {
+      font-size: 0.8em;
+      font-family: hasklig;
+    }
+  </style>
   <title>Dexera</title>
 </head>
 

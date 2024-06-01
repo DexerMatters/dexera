@@ -3,14 +3,14 @@ import { Flex, Heading, Text } from "rebass";
 import Template from "./pages/Template";
 import { Link, useSearchParams } from "react-router-dom";
 
-export default function Layout({ ctg }) {
+export default function Layout({ ctg, api }) {
   let [data, setData] = useState({ ctg: ctg, content: "" });
   let [query] = useSearchParams();
   let path = decodeURIComponent(query.get("path"));
 
   useEffect(() => {
     let mData = { ctg: ctg, content: "" };
-    fetch("https://api.dexera.online/content?path=" + encodeURIComponent(path))
+    fetch(api + "/content?path=" + encodeURIComponent(path))
       .then(response => response.text())
       .then(data => mData.content = data)
       .then(() => setData(mData))
@@ -20,7 +20,7 @@ export default function Layout({ ctg }) {
   console.log(path)
   console.log(data);
   return (
-    <Flex pt={3} bg='white' alignItems='stretch' width='100%' height='100vh'>
+    <Flex pt={3} bg='white' alignItems='stretch' width='100%' height='100vh' overflowX='clip'>
       <Flex pl={3} flex={1} flexDirection='column' alignItems='stretch'>
         <Heading fontSize={5} mb={2}>
           Dex<font color="purple">era</font>
@@ -30,7 +30,9 @@ export default function Layout({ ctg }) {
         }
       </Flex>
       <Flex ml={1} pl={3} flex={3.5} sx={{ borderLeft: "3px dashed purple" }}>
-        <Template header={path.slice(path.lastIndexOf('/') + 1)} content={data.content} />
+        <Template isFile={path.endsWith(".md")} header={
+          path.slice(path.lastIndexOf('/') + 1)
+        } content={data.content} />
       </Flex>
     </Flex>
   )
@@ -40,8 +42,9 @@ export default function Layout({ ctg }) {
 function generateList(ctg, path, level = 0, foreLevel = 0) {
   if (ctg === undefined || ctg.length === 0)
     return []
-  let contains = path.indexOf(ctg[0].path) === 0;
-  let hasSub = ctg[0].sub.length >= 1;
+  const contains = path.indexOf(ctg[0].path) === 0;
+  const hasSub = ctg[0].sub.length >= 1;
+  const isMd = ctg[0]["title"].endsWith(".md");
   return []
     .concat(
       <Heading
@@ -59,7 +62,11 @@ function generateList(ctg, path, level = 0, foreLevel = 0) {
             p={1}
             backgroundColor={contains ? (hasSub ? "purple" : "grey") : "white"}
             color={contains ? "white" : "black"}>
-            {ctg[0]["title"]}
+            {
+              isMd ?
+                ctg[0]["title"].slice(0, ctg[0]["title"].length - 3) :
+                ctg[0]["title"]
+            }
           </Text>
         </Link>
         {

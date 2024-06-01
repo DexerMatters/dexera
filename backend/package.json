@@ -17,6 +17,10 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "hound": "^1.0.5"
+    "highlight.js": "^11.9.0",
+    "hound": "^1.0.5",
+    "markdown-it": "^14.1.0",
+    "markdown-it-style": "^1.0.0",
+    "node-html-parser": "^6.1.13"
   }
 }
