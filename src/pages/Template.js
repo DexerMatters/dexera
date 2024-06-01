@@ -1,5 +1,3 @@
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
-import { atelierForestLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Box, Flex, Heading } from "rebass";
 
 export default function Template({ header, isFile, content }) {
