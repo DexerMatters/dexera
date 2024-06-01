@@ -5,8 +5,6 @@ import { AnimatedFlex } from "./components/Animation";
 import { useSpring } from "@react-spring/web";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 
-const columns = ["Home", "Notes", "Works", "About"];
-
 export default function Layout() {
   let [data, setData] = useState({ ctg: [], content: "" });
   let [query] = useSearchParams();
