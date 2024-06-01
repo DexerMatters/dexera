@@ -30,9 +30,10 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    - run: ls
     
     - uses: actions/checkout@v4
-    - name: Copy file via ssh password
+    - name: Copy file via ssh key
       uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.DESTINATION_HOST }}
