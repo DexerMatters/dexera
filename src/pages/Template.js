@@ -26,11 +26,13 @@ export default function Template({ header, content }) {
           rehypePlugins={[rehypeKatex]}
           components={{
             h3(props) {
-              const { node, ...rest } = props
-              return <h3 style={{
+              const { node, children, ...rest } = props
+              return <h3 aria-hidden="true" style={{
                 borderLeft: '3px solid purple',
                 paddingLeft: '8px'
-              }} {...rest} />
+              }} {...rest}>
+                {children}
+              </h3>
             },
             p(props) {
               const { node, ...rest } = props
