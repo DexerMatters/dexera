@@ -29,3 +29,18 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Copy to Remote Server
+      uses: pierrickdelrieu/scp-action@v0.1.0
+      with:
+        host: ${{ secrets.DESTINATION_HOST }}
+        ssh_port: ${{ secrets.DESTINATION_SSH_PORT }}
+        ssh_username: ${{ secrets.SSH_USERNAME }}
+        ssh_key: ${{ secrets.SSH_KEY }}
+        ssh_passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        source_dir: ${{ secrets.SOURCE_FOLDER }}
+        destination_dir: ${{ secrets.DESTINATION_FOLDER }}
+        rm: true
