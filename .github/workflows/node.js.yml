@@ -32,20 +32,15 @@ jobs:
     - run: npm test
     - run: echo ${{ secrets.DESTINATION_HOST }}
 
-    - uses: picodebr/copy-action@v1
+    - name: copy file via ssh key
+      uses: appleboy/scp-action@v0.1.7
       with:
-        # remote server private ssh key (required)
-        ssh_key: ${{ secrets.SSH_KEY }}
+        host: ${{ secrets.DESTINATION_HOST }}
+        username: "dexer"
+        port: 50126
+        key: ${{ secrets.SSH_KEY }}
+        source: "build"
+        target: "/var/www/dexera"
+      
     
-        # remote server username (required)
-        ssh_user: "dexer"
-    
-        # remote server address (required)
-        ssh_host: ${{ secrets.DESTINATION_HOST }}
-    
-        # list of files and directories to be copied (required)
-        source: "build/*"
-    
-        # remote server destination path to paste the copied data (required)
-        destination: "/var/www/dexera"
     - uses: actions/checkout@v4
