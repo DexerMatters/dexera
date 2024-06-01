@@ -30,7 +30,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-    - run: ls
+    - run: echo ${{ secrets.DESTINATION_HOST }}
     
     - name: Copy file via ssh key
       uses: appleboy/scp-action@v0.1.7
@@ -39,7 +39,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.DESTINATION_SSH_PORT }}
-        source: "~/build/*"
+        source: "./build/*"
         target: "/var/www/dexera"
         rm: true
     - uses: actions/checkout@v4
