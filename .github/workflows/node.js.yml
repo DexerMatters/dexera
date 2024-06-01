@@ -41,7 +41,7 @@ jobs:
         port: 50126
         key: "${SSH_KEY}"
         source: "build/*"
-        target: "/var/www/dexera/"
+        target: "/var/www/dexera"
         rm: true
       
     
