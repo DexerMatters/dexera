@@ -10,7 +10,7 @@ import theme from './theme';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/s/?path=.%2Fdoc%2FHome" replace />
+    element: <Navigate to="/s/?path=.%2Fdocs%2FHome" replace />
   },
   {
     path: "/s",
