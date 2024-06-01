@@ -3,17 +3,13 @@ import { Flex, Heading, Text } from "rebass";
 import Template from "./pages/Template";
 import { Link, useSearchParams } from "react-router-dom";
 
-export default function Layout() {
-  let [data, setData] = useState({ ctg: [], content: "" });
+export default function Layout(ctg) {
+  let [data, setData] = useState({ ctg: ctg, content: "" });
   let [query] = useSearchParams();
   let path = decodeURIComponent(query.get("path"));
 
   useEffect(() => {
-    let mData = { ctg: [], content: "" };
-    fetch("https://api.dexera.online/catergory")
-      .then(response => response.json())
-      .then(data => mData.ctg = data)
-      .catch(err => console.error(err));
+    let mData = { ctg: ctg, content: "" };
     fetch("https://api.dexera.online/content?path=" + encodeURIComponent(path))
       .then(response => response.text())
       .then(data => mData.content = data)

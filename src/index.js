@@ -6,6 +6,9 @@ import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import Layout from './Layout';
 import theme from './theme';
+import fetch from 'sync-fetch'
+
+const ctg = fetch("https://api.dexera.online/catergory").json()
 
 const router = createBrowserRouter([
   {
@@ -14,7 +17,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/s",
-    element: <Layout />
+    element: <Layout ctg={ctg} />
   }
 ])
 
