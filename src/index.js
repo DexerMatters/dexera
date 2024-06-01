@@ -8,7 +8,7 @@ import Layout from './Layout';
 import theme from './theme';
 import fetch from 'sync-fetch'
 
-const API = 'http://api.dexera.online';
+const API = 'https://api.dexera.online';
 // const API = "http://localhost:3001";
 
 const ctg = fetch(API + "/catergory").json()
