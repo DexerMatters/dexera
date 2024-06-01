@@ -22,5 +22,5 @@ jobs:
         port: 50126
         script: |
           cd dexera
-          git pull
+          sudo git pull
         
