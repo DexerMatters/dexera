@@ -32,7 +32,6 @@ jobs:
     - run: npm test
     - run: ls
     
-    - uses: actions/checkout@v4
     - name: Copy file via ssh key
       uses: appleboy/scp-action@v0.1.7
       with:
@@ -43,3 +42,4 @@ jobs:
         source: "~/build/*"
         target: "/var/www/dexera"
         rm: true
+    - uses: actions/checkout@v4
