@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { Flex, Heading, Text } from "rebass";
 import Template from "./pages/Template";
-import { AnimatedFlex } from "./components/Animation";
-import { useSpring } from "@react-spring/web";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default function Layout() {
   let [data, setData] = useState({ ctg: [], content: "" });
@@ -46,7 +44,7 @@ export default function Layout() {
 function generateList(ctg, path, level = 0, foreLevel = 0) {
   if (ctg === undefined || ctg.length === 0)
     return []
-  let contains = path.indexOf(ctg[0].path) == 0;
+  let contains = path.indexOf(ctg[0].path) === 0;
   let hasSub = ctg[0].sub.length >= 1;
   return []
     .concat(
@@ -71,7 +69,7 @@ function generateList(ctg, path, level = 0, foreLevel = 0) {
         {
           contains && hasSub ?
             generateList(
-              ctg[0].sub.filter(e => e.title != "index.md"), //hide index.md
+              ctg[0].sub.filter(e => e.title !== "index.md"), //hide index.md
               path,
               level + 1,
               level) : []
