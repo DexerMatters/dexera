@@ -20,7 +20,7 @@ export default function Layout({ ctg, api }) {
   console.log(path)
   console.log(data);
   return (
-    <Flex pt={3} bg='white' alignItems='stretch' width='100%' height='100vh' overflowX='clip'>
+    <Flex pt={3} bg='white' alignItems='stretch' width='100%' height='100vh' overflow='clip'>
       <Flex pl={3} flex={1} flexDirection='column' alignItems='stretch'>
         <Heading fontSize={5} mb={2}>
           Dex<font color="purple">era</font>

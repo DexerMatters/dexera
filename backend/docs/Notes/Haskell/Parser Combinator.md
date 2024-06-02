@@ -20,3 +20,8 @@ comp (E.Var n) env = case elemIndex n env of
     Nothing -> Err "Undefined variable"
 comp (E.Err s) _ = Err s
 ```
+
+<nomnoml>
+[<start>start] -> [<state>plunder] -> [<choice>more loot] -> [start]
+[more loot] no ->[<end>e]
+</nomnoml>

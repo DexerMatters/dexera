@@ -5,6 +5,7 @@ import hound from 'hound';
 import markdownit from 'markdown-it';
 import markdownItStyle from 'markdown-it-style';
 import { parse } from 'node-html-parser';
+import nomnoml from 'nomnoml';
 
 import hljs from 'highlight.js'
 
@@ -36,7 +37,17 @@ md.use(markdownItStyle, {
 });
 
 md.renderer.rules.html_block = function (tokens, idx /*, options, env */) {
-  // todo
+  let theNode = parse(tokens[idx].content).firstChild;
+  if (theNode.rawTagName == "nomnoml") {
+    let svg = nomnoml.renderSvg(theNode.rawText);
+    svg = svg
+      .replaceAll(`stroke-width="1.0"`, `stroke-width="0.7"`)
+      .replaceAll(`stroke-width="3.0"`, `stroke-width="1.2"`)
+      .replaceAll(`font-weight="bold"`, ``)
+      .replaceAll(`font-size="12pt"`, `font-size="11pt"`)
+      .replaceAll(`#eee8d5`, `rgb(244,236,245)`);
+    return svg;
+  };
   return tokens[idx].content
 }
 
