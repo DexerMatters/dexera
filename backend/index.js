@@ -4,8 +4,9 @@ import cors from 'cors';
 import hound from 'hound';
 import markdownit from 'markdown-it';
 import markdownItStyle from 'markdown-it-style';
-import { parse } from 'node-html-parser';
-import nomnoml from 'nomnoml';
+import markdownItTexmath from 'markdown-it-texmath';
+import markdownItTextualUml from 'markdown-it-textual-uml';
+import kate from 'katex';
 
 import hljs from 'highlight.js'
 
@@ -28,6 +29,7 @@ const md = markdownit({
   }
 });
 
+
 md.use(markdownItStyle, {
   'p': "padding-left: 8px; font-size: 0.9em; line-height: 1.5em",
   'ul': "font-size: 0.9em; line-height: 1.5em",
@@ -36,20 +38,13 @@ md.use(markdownItStyle, {
   'blockquote': "padding: 2px 8px 2px 8px; color: rgb(73,54,72); border-left: 3px solid purple; background-color: rgb(244,236,245)"
 });
 
-md.renderer.rules.html_block = function (tokens, idx /*, options, env */) {
-  let theNode = parse(tokens[idx].content).firstChild;
-  if (theNode.rawTagName == "nomnoml") {
-    let svg = nomnoml.renderSvg(theNode.rawText);
-    svg = svg
-      .replaceAll(`stroke-width="1.0"`, `stroke-width="0.7"`)
-      .replaceAll(`stroke-width="3.0"`, `stroke-width="1.2"`)
-      .replaceAll(`font-weight="bold"`, ``)
-      .replaceAll(`font-size="12pt"`, `font-size="11pt"`)
-      .replaceAll(`#eee8d5`, `rgb(244,236,245)`);
-    return svg;
-  };
-  return tokens[idx].content
-}
+md.use(markdownItTexmath, {
+  engine: kate,
+  delimiter: 'dollars',
+  katexOptions: { macros: { "\\RR": "\\mathbb{R}" } }
+});
+
+md.use(markdownItTextualUml);
 
 let catergory = [];
 let app = express();
