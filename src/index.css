@@ -1,11 +1,11 @@
 @font-face {
   font-family: Hasklig;
-  src: local('Hasklig'), url(./fonts/Hasklig-Regular.ttf) format('tff');
+  src: local('Hasklig'), url(./fonts/Hasklig-Regular.ttf) format('truetype');
 }
 
 .hljs {
   font-size: 0.9em;
-  font-family: Hasklig monospace;
+  font-family: Hasklig source-code-pro, Menlo, Monaco, Consolas monospace;
 }
 
 .katex-html {
