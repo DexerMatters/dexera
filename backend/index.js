@@ -34,7 +34,7 @@ md.use(markdownItStyle, {
   'p': "padding-left: 8px; font-size: 0.9em; line-height: 1.5em",
   'ul': "font-size: 0.9em; line-height: 1.5em",
   'h3': "border-left: 3px solid purple; padding-left: 8px",
-  'code': "font-size: 0.85em; background-color: rgb(244, 236, 245); padding: 3px; border-radius: 10%",
+  'code': "font-size: 0.9em; font-family: Hasklig monospace; background-color: rgb(244, 236, 245); padding: 3px; border-radius: 10%",
   'blockquote': "padding: 2px 8px 2px 8px; color: rgb(73,54,72); border-left: 3px solid purple; background-color: rgb(244,236,245)"
 });
 
