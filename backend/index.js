@@ -4,10 +4,9 @@ import cors from 'cors';
 import hound from 'hound';
 import markdownit from 'markdown-it';
 import markdownItStyle from 'markdown-it-style';
-import markdownItTexmath from 'markdown-it-texmath';
 import markdownItTextualUml from 'markdown-it-textual-uml';
-import kate from 'katex';
-
+import markdownItMathJax3 from 'markdown-it-mathjax3';
+import { markdownItTable } from 'markdown-it-table';
 import hljs from 'highlight.js'
 
 const docsPath = "./docs";
@@ -35,16 +34,15 @@ md.use(markdownItStyle, {
   'ul': "font-size: 0.9em; line-height: 1.5em",
   'h3': "border-left: 3px solid purple; padding-left: 8px",
   'code': "font-size: 0.9em; font-family: Hasklig monospace; background-color: rgb(244, 236, 245); padding: 3px; border-radius: 10%",
-  'blockquote': "padding: 2px 8px 2px 8px; color: rgb(73,54,72); border-left: 3px solid purple; background-color: rgb(244,236,245)"
-});
-
-md.use(markdownItTexmath, {
-  engine: kate,
-  delimiter: 'dollars',
-  katexOptions: { macros: { "\\RR": "\\mathbb{R}" } }
+  'blockquote': "padding: 2px 8px 2px 8px; color: rgb(73,54,72); border-left: 3px solid purple; background-color: rgb(244,236,245)",
+  'table': "margin-left: 16px;background-color:rgb(244, 236, 245)",
+  'td': "padding: 2px 2px 2px 8px",
+  'th': "border-bottom: 2px solid purple"
 });
 
 md.use(markdownItTextualUml);
+md.use(markdownItTable);
+md.use(markdownItMathJax3);
 
 let catergory = [];
 let app = express();
