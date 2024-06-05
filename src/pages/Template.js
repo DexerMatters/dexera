@@ -2,7 +2,14 @@ import { Box, Flex, Heading } from "rebass";
 
 export default function Template({ header, isFile, content }) {
   return (
-    <Flex paddingBottom='40%' paddingLeft='2rem' paddingRight='2rem' flexDirection='column' height='100vh' width='100%' overflowY='scroll'>
+    <Flex
+      width='100%'
+      height='100vh'
+      pr='10%'
+      pb='40%'
+      pl='2rem'
+      flexDirection='column'
+      overflowY='scroll'>
       <Heading
         p={0}
         opacity={0.3}
