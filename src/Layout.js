@@ -3,22 +3,40 @@ import { Flex, Heading, Text } from "rebass";
 import Template from "./pages/Template";
 import { Link, useSearchParams } from "react-router-dom";
 
+let cache = [];
+
 export default function Layout({ ctg, api }) {
   let [data, setData] = useState({ ctg: ctg, content: "" });
+  let [loading, setLoading] = useState(false);
   let [query] = useSearchParams();
   let path = decodeURIComponent(query.get("path"));
-
   useEffect(() => {
     let mData = { ctg: ctg, content: "" };
-    fetch(api + "/content?path=" + encodeURIComponent(path))
-      .then(response => response.text())
-      .then(data => mData.content = data)
-      .then(() => setData(mData))
-      .catch(err => console.error(err))
-  }, [path, ctg, api]);
+    if (loading) {
+      let f = cache.find(v => v[path] !== undefined)
+      console.log(f);
+      if (f) {
+        setData({ ctg: ctg, content: f[path] })
+        setLoading(false);
+      }
+      else
+        fetch(api + "/content?path=" + encodeURIComponent(path))
+          .then(response => response.text())
+          .then(data => {
+            mData.content = data;
+            if (!cache.find(v => v[path] !== undefined)) {
+              let obj = {};
+              obj[path] = data;
+              cache.push(obj);
+            }
+          })
+          .then(() => setData(mData))
+          .then(() => setLoading(false))
+          .catch(err => console.error(err));
+    };
+    return () => { if (!loading) setLoading(true); }
+  }, [ctg, loading, path, api]);
 
-  console.log(path)
-  console.log(data);
   return (
     <Flex pt={3} bg='white' alignItems='stretch' width='100%' height='100vh' overflow='clip'>
       <Flex pl={3} flex={1} flexDirection='column' alignItems='stretch'>
@@ -30,9 +48,13 @@ export default function Layout({ ctg, api }) {
         }
       </Flex>
       <Flex ml={1} pl={3} flex={3.5} sx={{ borderLeft: "3px dashed purple" }}>
-        <Template isFile={path.endsWith(".md")} header={
-          path.slice(path.lastIndexOf('/') + 1)
-        } content={data.content} />
+        <Template
+          isFile={path.endsWith(".md")}
+          isLoading={loading}
+          header={
+            path.slice(path.lastIndexOf('/') + 1)
+          }
+          content={data.content} />
       </Flex>
     </Flex>
   )

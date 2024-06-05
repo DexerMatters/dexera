@@ -1,6 +1,8 @@
+import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'
 import { Box, Flex, Heading } from "rebass";
 
-export default function Template({ header, isFile, content }) {
+export default function Template({ header, isFile, isLoading, content }) {
   return (
     <Flex
       width='100%'
@@ -15,11 +17,19 @@ export default function Template({ header, isFile, content }) {
         opacity={0.3}
         fontSize={isFile ? "4em" : "8em"}
         color="purple"
-        sx={{ position: "relative", userSelect: 'none' }}
+        sx={{ position: "relative", userSelect: 'none', zIndex: '100' }}
       >
         {isFile ? header.slice(0, header.length - 3) : header}
       </Heading>
-      <Box mt={isFile || "-4.5em"} dangerouslySetInnerHTML={{ __html: content }} />
+      {
+        !isLoading ?
+          <Box mt={isFile || "-4.5em"} dangerouslySetInnerHTML={{ __html: content }} />
+          :
+          <Box mt={isFile || "-4.5em"} pt='25px'>
+            <Skeleton height='32px' style={{ marginBottom: '16px' }} />
+            <Skeleton height='16px' count={12} style={{ marginBottom: '8px' }} />
+          </Box>
+      }
     </Flex >
   )
 }
