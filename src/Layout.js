@@ -3,9 +3,9 @@ import { Flex, Heading, Text, Box } from "rebass";
 import Template from "./pages/Template";
 import { Link, useSearchParams } from "react-router-dom";
 import { useMediaQuery } from "@react-hook/media-query";
-import { GiHamburgerMenu } from "react-icons/gi";
 import Logo from './components/Miscs';
 import { AnimatedFlex } from "./components/Animation";
+import { Menu } from "react-feather";
 
 let cache = [];
 
@@ -114,7 +114,7 @@ export default function Layout({ ctg, api }) {
         justifyItems='stretch'
         justifyContent='space-between'>
         <Logo pb={1} />
-        <GiHamburgerMenu
+        <Menu
           style={{ paddingBottom: '8px', paddingRight: '8px' }}
           size='28px'
           color="purple"
