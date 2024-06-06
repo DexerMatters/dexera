@@ -7,3 +7,8 @@ In the future, I will allow readers to send notes and posts onto this website
 and apply more interactive functions to the site including "likes" and "stars".
 Nevertheless, some work on improvement depends on my time and energy. I will
 perhaps invite some other people to the development of the website.
+### Open-sourced
+This website itself is open-sourced including its back-end. Welcome to create pull requests helping to make this site a better place.
+### Feedback & Issues
+You can commit your feedback onto Github Issues: https://github.com/DexerMatters/dexera/issues  
+Or you can just contact me by e-mail.

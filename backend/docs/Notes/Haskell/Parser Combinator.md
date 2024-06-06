@@ -188,7 +188,7 @@ parseInteger = token $ do
 parseBool :: Parser Token
 parseBool = token $ do
   b <- string "true" <|> string "false"
-  return $ TermStr (b == "true")
+  return $ TermBool (b == "true")
 ```
 
 ### 解析表达式
