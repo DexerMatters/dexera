@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
-import { Flex, Heading, Text } from "rebass";
+import { Flex, Heading, Text, Box } from "rebass";
 import Template from "./pages/Template";
 import { Link, useSearchParams } from "react-router-dom";
+import { useMediaQuery } from "@react-hook/media-query";
+import { GiHamburgerMenu } from "react-icons/gi";
+import Logo from './components/Miscs';
+import { useSpring, animated } from "@react-spring/web";
+import { AnimatedFlex } from "./components/Animation";
 
 let cache = [];
 
 export default function Layout({ ctg, api }) {
   let [data, setData] = useState({ ctg: ctg, content: "" });
+  let [hasExtended, extend] = useState(false);
   let [loading, setLoading] = useState(false);
   let [query] = useSearchParams();
+
   let path = decodeURIComponent(query.get("path"));
+  let isDesktop = useMediaQuery("(min-width: 960px)");
+
   useEffect(() => {
     let mData = { ctg: ctg, content: "" };
     if (loading) {
@@ -37,20 +46,86 @@ export default function Layout({ ctg, api }) {
     return () => { if (!loading) setLoading(true); }
   }, [ctg, loading, path, api]);
 
-  return (
-    <Flex pt={3} bg='white' alignItems='stretch' width='100%' height='100vh' overflow='clip'>
-      <Flex pl={3} flex={1} flexDirection='column' alignItems='stretch'>
-        <Heading fontSize={5} mb={2}>
-          Dex<font color="purple">era</font>
-        </Heading>
-        {
-          data.ctg.length !== 0 && generateList(data.ctg, path)
-        }
+  // When it is shwon on desktop
+  if (isDesktop)
+    return (
+      <Flex
+        pt={3}
+        bg='white'
+        alignItems='stretch'
+        width='100%'
+        height='100vh'
+        overflow='clip'>
+        <Flex pl={3} flex={1} flexDirection='column' alignItems='stretch'>
+          <Logo />
+          {
+            data.ctg.length !== 0 && generateList(data.ctg, path)
+          }
+        </Flex>
+        <Flex ml={1} pl={3} flex={3.5} sx={{ borderLeft: "3px dashed purple" }}>
+          <Template
+            isFile={path.endsWith(".md")}
+            isLoading={loading}
+            header={
+              path.slice(path.lastIndexOf('/') + 1)
+            }
+            content={data.content} />
+        </Flex>
       </Flex>
-      <Flex ml={1} pl={3} flex={3.5} sx={{ borderLeft: "3px dashed purple" }}>
+    )
+
+  // When it is shown on phone
+  return (
+    <Flex
+      bg='white'
+      flexDirection='column'
+      alignItems='stretch'
+      width='100%'
+      height='100vh'
+      overflow='clip'>
+      {
+        hasExtended &&
+        <Flex
+          bg='rgba(255, 255, 255, 0.7)'
+          width='100vw'
+          height='100vh'
+          style={{ position: 'absolute', zIndex: 600 }}
+        >
+          <AnimatedFlex
+            bg='white'
+            width='70vw'
+            flexDirection='column'
+            sx={{
+              boxShadow: '1px 1px 32px black',
+            }}>
+            <Logo pt={2} />
+            <Box px={2}>
+              {
+                data.ctg.length !== 0 && generateList(data.ctg, path)
+              }
+            </Box>
+          </AnimatedFlex>
+          <Box width='30vw' onClick={() => { extend(false) }} />
+        </Flex>
+      }
+      <Flex
+        mt={3}
+        height='32px'
+        alignItems='center'
+        justifyItems='stretch'
+        justifyContent='space-between'>
+        <Logo pb={1} />
+        <GiHamburgerMenu
+          style={{ paddingBottom: '8px', paddingRight: '8px' }}
+          size='28px'
+          color="purple"
+          onClick={() => extend(true)} />
+      </Flex>
+      <Flex flex={1} ml={1} pl={3} sx={{ borderTop: "3px dashed purple" }}>
         <Template
           isFile={path.endsWith(".md")}
           isLoading={loading}
+          isMobile={true}
           header={
             path.slice(path.lastIndexOf('/') + 1)
           }
