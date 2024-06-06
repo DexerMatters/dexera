@@ -5,7 +5,6 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useMediaQuery } from "@react-hook/media-query";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Logo from './components/Miscs';
-import { useSpring, animated } from "@react-spring/web";
 import { AnimatedFlex } from "./components/Animation";
 
 let cache = [];
