@@ -153,7 +153,9 @@ function generateList(ctg, path, level = 0, foreLevel = 0) {
         fontWeight={level > 0 ? 400 : 900}
         sx={{ borderLeft: level > 0 ? "3px solid purple" : '' }}
       >
-        <Link to={"/s/?path=" + encodeURIComponent(ctg[0].path)} style={{ textDecoration: 'none' }}>
+        <Link
+          to={"/s/?path=" + encodeURIComponent(ctg[0].path)}
+          style={{ textDecoration: 'none' }}>
           <Text
             p={1}
             backgroundColor={contains ? (hasSub ? "purple" : "grey") : "white"}
