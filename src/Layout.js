@@ -12,7 +12,7 @@ let cache = [];
 export default function Layout({ ctg, api }) {
   let [data, setData] = useState({ ctg: ctg, content: "" });
   let [hasExtended, extend] = useState(false);
-  let [loading, setLoading] = useState(false);
+  let [loading, setLoading] = useState(true);
   let [query] = useSearchParams();
 
   let path = decodeURIComponent(query.get("path"));
