@@ -203,7 +203,7 @@ struct remove_reference<&&T> {
 >&emsp;&emsp;你可以从这里找到标准库中所有元函数：
 https://en.cppreference.com/w/cpp/metahttps://en.cppreference.com/w/cpp/meta
 ### 元函数作为类型容器
-&emsp;&emsp;在常量编程中，我们可以利用**std::tuple<T1,T2,...>**与**std::pair<A,B>**来存放类型。
+&emsp;&emsp;在常量编程中，我们可以利用**std::tuple\<T1,T2,...\>**与**std::pair\<A,B\>**来存放类型。
 #### std::tuple
 ```cpp
 using Ts = std::tuple<int, bool, float, string>;
@@ -270,4 +270,22 @@ void foo (int arr[N]) {
 int i[3] = {1, 2, 3};
 foo (i) // 推断出 N = 3
 ```
-to be continued
+### 从模板推导
+&emsp;&emsp;在之前我们定义了一个比较常量的`is_same`，但是它只能够对int类型的常量进行比较。为了使得它能够兼容所有可比较的类型，我们需要做到从模版中推导类型：
+```cpp
+// 两个常量本身类型不同
+template <typename T1, typename T2, T1 A, T2 B>
+struct is_same {
+  static const bool value = false;
+};
+
+// 两个常量类型相同
+template <typename T, T A, T B>
+struct is_same {
+  static const bool value = A == B;
+}
+
+is_same<1, 2.f>::value //推导出T1 = int; T2 = float; 结果为false
+is_same<1, 2>::value //推导出T = int; 结果为false;
+is_same<1, 1>::value //推导出T = int; 结果为true;
+```
