@@ -199,5 +199,75 @@ struct remove_reference<&&T> {
   using type = T;
 };
 ```
-### 元函数中的类型推导
-todo
+### 标准库中的元函数
+>&emsp;&emsp;你可以从这里找到标准库中所有元函数：
+https://en.cppreference.com/w/cpp/metahttps://en.cppreference.com/w/cpp/meta
+### 元函数作为类型容器
+&emsp;&emsp;在常量编程中，我们可以利用**std::tuple<T1,T2,...>**与**std::pair<A,B>**来存放类型。
+#### std::tuple
+```cpp
+using Ts = std::tuple<int, bool, float, string>;
+std::tuple_size<Ts>::value // 4
+std::tuple_element<1, Ts>::type // bool
+std::tuple_element<2, Ts>::type // float
+```
+#### std::pair
+```cpp
+using Ts = std::pair<float, string>;
+Ts::first_type // float
+Ts::second_type // string
+```
+## 类型推导
+&emsp;&emsp;C++中的类型推导往往是从运行时的值出发，来推出模板类型的具体类型，或者`auto`的类型。由于值的类型是被确定的，那么类型推导必须推导出另外一个确定的类型，否则会发生错误 （deduction fails. T is ambiguous）
+### 从参数推导
+&emsp;&emsp;在我们写出`std::pair p(2, 4.f);`这样的函数时候，即使我们并没有用模板方式传入`pair`两值的类型，编译器也自动推断出`std::pair<int, float>`，这种过程就是一种**类型推导**。  
+&emsp;&emsp;相信学过模板编程的读者应该知道，一个函数当参数为模板类型时，模板类型会根据参数自动推断出自己的类型，例如：
+```cpp
+template <typename T, typename S>
+void foo (T a1, S a2) {
+  //...
+};
+template <typename T>
+void bar (T a1, T a2) {
+  //...
+};
+foo (1, 1.f) // 推断出 T = int; S = float
+bar (1, 1) // 推断出 T = int
+bar (1, 1.f) // Error, 无法确定T是int还是float
+```
+#### std::initializer_list\<T\>
+&emsp;&emsp;阅读文档我们可以知道，这个结构体能够帮助我们把类型为T的数组的每一项类型去掉`const`，`volatile`或者`&`，`&&`，那么当其作为参数类型时，`T`也可以通过参数数组的元素类型做出推导。
+```cpp
+template <typename T>
+void foo (std::initializer_list<T> arr) {
+  //...
+};
+
+foo ({1, 2}) //Ok, T = int
+foo ({1, 2.f}) //Error, 无法确定T是int还是float
+
+```
+#### std::tuple\<T...\>
+&emsp;&emsp;下面我们再以元组举例加深理解参数的类型推导：
+```cpp
+template <typename A, typename B>
+void foo (std::tuple<A, A, B> t) {
+  //...
+};
+
+foo (std::tuple(1, 2, 3)) //Ok, A = int; B = int
+foo (std::tuple(1, 2, "Hello")) //Ok, A = int; B = const char*
+foo (std::tuple(1, 2.f, "Hello")) //Error, 无法确定A是int还是float
+```
+
+#### 常量模板的推断
+&emsp;&emsp;类似于`template <int I>`的这种常量模板也是可以从参数推断出`I`的值，比如传入的是一个静态数组：
+```cpp
+template <size_t N>
+void foo (int arr[N]) {
+  //...
+};
+int i[3] = {1, 2, 3};
+foo (i) // 推断出 N = 3
+```
+to be continued
