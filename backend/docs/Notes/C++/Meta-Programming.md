@@ -224,11 +224,11 @@ Ts::second_type // string
 &emsp;&emsp;相信学过模板编程的读者应该知道，一个函数当参数为模板类型时，模板类型会根据参数自动推断出自己的类型，例如：
 ```cpp
 template <typename T, typename S>
-void foo (T a1, S a2) {
+void foo(T a1, S a2) {
   //...
 };
 template <typename T>
-void bar (T a1, T a2) {
+void bar(T a1, T a2) {
   //...
 };
 foo (1, 1.f) // 推断出 T = int; S = float
@@ -239,7 +239,7 @@ bar (1, 1.f) // Error, 无法确定T是int还是float
 &emsp;&emsp;阅读文档我们可以知道，这个结构体能够帮助我们把类型为T的数组的每一项类型去掉`const`，`volatile`或者`&`，`&&`，那么当其作为参数类型时，`T`也可以通过参数数组的元素类型做出推导。
 ```cpp
 template <typename T>
-void foo (std::initializer_list<T> arr) {
+void foo(std::initializer_list<T> arr) {
   //...
 };
 
@@ -251,7 +251,7 @@ foo ({1, 2.f}) //Error, 无法确定T是int还是float
 &emsp;&emsp;下面我们再以元组举例加深理解参数的类型推导：
 ```cpp
 template <typename A, typename B>
-void foo (std::tuple<A, A, B> t) {
+void foo(std::tuple<A, A, B> t) {
   //...
 };
 
@@ -264,7 +264,7 @@ foo (std::tuple(1, 2.f, "Hello")) //Error, 无法确定A是int还是float
 &emsp;&emsp;类似于`template <int I>`的这种常量模板也是可以从参数推断出`I`的值，比如传入的是一个静态数组：
 ```cpp
 template <size_t N>
-void foo (int arr[N]) {
+void foo(int (&arr)[N]) {
   //...
 };
 int i[3] = {1, 2, 3};
@@ -288,4 +288,25 @@ struct is_same {
 is_same<1, 2.f>::value //推导出T1 = int; T2 = float; 结果为false
 is_same<1, 2>::value //推导出T = int; 结果为false;
 is_same<1, 1>::value //推导出T = int; 结果为true;
+```
+### 从返回值推导
+&emsp;&emsp;C++14及以后，`auto`可以作为返回值类型参与返回值的推导过程，这样我们可以允许更弹性的返回值。
+#### 非模板情况
+```cpp
+// 两个常量本身类型不同
+auto foo() {
+  return 12;
+}
+//auto推断为int
+```
+#### 模板情况
+&emsp;&emsp;`decltype(auto)`作为返回的占位符能够允许我们进行更高阶的推断，例如从模板的类型推断出返回值的类型，例如下面代码：
+```cpp
+// Fun：函数的类型
+// Args：函数参数的类型
+template<class Fun, class... Args>
+decltype(auto) Example(Fun fun, Args&&... args) 
+{ 
+    return fun(std::forward<Args>(args)...); 
+}
 ```
