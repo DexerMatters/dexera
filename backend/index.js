@@ -78,12 +78,16 @@ app.get("/catergory", (req, res) => {
 
 app.get("/content", (req, res) => {
   let path = decodeURIComponent(req.query["path"]);
-  if (statSync(path).isDirectory() && existsSync(path + "/index.md")) {
-    path += "/index.md"
-  };
-  readFile(path, (err, data) =>
-    res.send(md.render(String(data)))
-  );
+  if (existsSync(path)) {
+    if (statSync(path).isDirectory() && existsSync(path + "/index.md")) {
+      path += "/index.md"
+    };
+    readFile(path, (err, data) =>
+      res.send(md.render(String(data)))
+    );
+  } else {
+    res.sendStatus(404);
+  }
 })
 
 app.listen(port, () =>
