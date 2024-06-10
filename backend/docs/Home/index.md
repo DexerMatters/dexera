@@ -10,5 +10,9 @@ perhaps invite some other people to the development of the website.
 ### Open-sourced
 This website itself is open-sourced including its back-end. Welcome to create pull requests helping to make this site a better place.
 ### Feedback & Issues
-You can commit your feedback onto Github Issues: https://github.com/DexerMatters/dexera/issues  
-Or you can just contact me by e-mail.
+You can commit your feedback onto Github:   
+- For ideas:  
+https://github.com/DexerMatters/dexera/discussions/1  
+- For bugs:   
+https://github.com/DexerMatters/dexera/issues  
+- Or you can just contact me by e-mail.
