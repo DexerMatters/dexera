@@ -247,7 +247,7 @@ foo ({1, 2}) //Ok, T = int
 foo ({1, 2.f}) //Error, 无法确定T是int还是float
 
 ```
-#### std::tuple\<T...\
+#### std::tuple\<T...\>
 &emsp;&emsp;下面我们再以元组举例加深理解参数的类型推导：
 ```cpp
 template <typename A, typename B
