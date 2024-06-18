@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components'
 import Layout from './Layout';
 import theme from './theme';
 import fetch from 'sync-fetch'
+import ColorTestPage from './extra/color_test';
 
 const API = 'https://api.dexera.online';
 //const API = "http://localhost:3001";
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/s",
     element: <Layout ctg={ctg} api={API} />
+  },
+  {
+    path: "/extra/color-test",
+    element: <ColorTestPage />
   }
 ])
 
