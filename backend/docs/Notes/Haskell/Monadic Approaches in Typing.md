@@ -1,5 +1,5 @@
 ## General
-Monad is a significant structure made to constitute states in a context-free and immutable development enviroment. When we write a type checker, there can be a lot of terms able to be simplified to State Monad functions in order to store some context/enviroment infomation.Furthermore the state monad can make effects throughout the evaluation, make a global enviroment and do great benefits to the beautification of your programming
+State Monad is a significant structure made to constitute states in a context-free and immutable development enviroment. When we write a type checker, there can be a lot of terms able to be simplified to State Monad functions in order to store some context/enviroment infomation.Furthermore the state monad can make effects throughout the evaluation, make a global enviroment and do great benefits to the beautification of your programming.
 
 ## Approach
 
