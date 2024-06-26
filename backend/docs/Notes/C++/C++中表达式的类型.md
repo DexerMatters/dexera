@@ -47,15 +47,15 @@ const int c = 12;
 c = 13;    // 错误，c是一个无法被修改的左值
 
 // --- 对于函数返回值：
-int f1(int i) {
+int f1(int& i) {
   return i;
 };
 
-int& f2(int i) {
+int& f2(int& i) {
   return i;
 };
 
-int* f3(int i) {
+int* f3(int& i) {
   return &i;
 };
 
