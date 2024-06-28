@@ -2,19 +2,20 @@
 &emsp;&emsp;C++和C语言有一个很大的不同，或者说一个较为现代的差异，也就是C++中*一切表达式都有类型，而且归属于**值的分类**（Value Catergory）*。
 ## 值的分类
 &emsp;&emsp;**值的分类**告诉了编译器这个表达式的值所允许的行为，例如在值的移动，复制，产生时必须遵守的行为特征。不同于Rust中的`derive`来限定每个值的行为，C++更多是使用各种各样的标识符来规定。在C++17中，这个概念也被完整地描述了出来：
-```plantuml
-@startmindmap
-!theme plain
-* 表达式
-** glvalue
-*** lvalue
-*** xvalue
-** rvalue
-*** xvalue
-*** prvalue
-@endmindmap
+```dot
+digraph mygraph {
+  "表达式"
+  "表达式" -> "glvalue"
+  "表达式" -> "rvalue"
+  "glvalue"
+  "glvalue" -> "lvalue"
+  "glvalue" -> "xvalue"
+  "rvalue"
+  "rvalue" -> "xvalue"
+  "rvalue" -> "prvalue"
+  "xvalue"
+}
 ```
-注：其中`glvalue`与`rvalue`都有`xvalue`作为子节点，只是因为画图的限制没有画成一个......  
 
 ### 左值（lvalue）
 >&emsp;&emsp;在官方文档中，除了左值和右值之外的值是这样定义的，我们在这里不进行详细的讲解，因为对于实际开发没啥用：  
