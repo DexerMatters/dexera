@@ -42,7 +42,9 @@ md.use(markdownItStyle, {
 
 md.use(markdownItTextualUml);
 md.use(markdownItTable);
-md.use(markdownItMathJax3);
+md.use(markdownItMathJax3, {
+  svg: { scale: 0.83 }
+});
 
 let catergory = [];
 let app = express();

@@ -118,11 +118,10 @@ Then we qualified module everywhere we wish to import them.
 ### 2.2 Evaluation
 $$
 \begin{align*}
-\Gamma&= \empty\:|\:\langle i,v \rangle &&\text{Value Enviroment}\\
+\Gamma&= \varnothing\:|\:\langle i,v \rangle &&\text{Value Enviroment}\\
 H&=(\Gamma,t)&&\text{Closure}\\
 v&=\top\:|\:\bot\:|\:i\:|\:\lambda.H\:|\:\{v...v\}\:|\:\Pi:v \to H &&\text{Value}
-\end{align*}\\
-
+\end{align*}
 $$
 An evaluator outputs `Val` from `T.Tm`. First we define that a value enviroment is an indexed list and that a closure is a structure that store envs and unintepreted terms.
 
