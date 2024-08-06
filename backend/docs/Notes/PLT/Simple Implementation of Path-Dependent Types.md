@@ -120,7 +120,8 @@ $$
 \begin{align*}
 \Gamma&= \varnothing\:|\:\langle i,v \rangle &&\text{Value Enviroment}\\
 H&=(\Gamma,t)&&\text{Closure}\\
-v&=\top\:|\:\bot\:|\:i\:|\:\lambda.H\:|\:\{v...v\}\:|\:\Pi:v \to H &&\text{Value}
+v&=\top\:|\:\bot\:|\:i\:|\:\lambda.H\:|\:\{v...v\}\:|\:\Pi:v \to H &&\text{Value}\\
+t&=... &&\text{Unintepreted Terms}
 \end{align*}
 $$
 An evaluator outputs `Val` from `T.Tm`. First we define that a value enviroment is an indexed list and that a closure is a structure that store envs and unintepreted terms.
@@ -162,4 +163,15 @@ $$
 $$
 ```haskell
 T.Var x -> env !! x
+```
+
+#### 2.2.3 Lambda Abstraction
+$$
+H = (\Gamma, t)
+\over
+\Gamma \vdash \lambda.t \Downarrow \lambda.H
+$$
+```haskell
+T.Lam n body
+    -> V.Lam n (Closure env body)
 ```
